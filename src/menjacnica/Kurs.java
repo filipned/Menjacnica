@@ -13,24 +13,32 @@ public class Kurs {
 		return prodajni;
 	}
 	public void setProdajni(double prodajni) {
+		if(prodajni < 0)
+			throw new RuntimeException("Prodajni kurs mora biti veci od nule.");
 		this.prodajni = prodajni;
 	}
 	public double getSrednji() {
 		return srednji;
 	}
 	public void setSrednji(double srednji) {
+		if(srednji < 0)
+			throw new RuntimeException("Srednji kurs mora biti veci od nule.");
 		this.srednji = srednji;
 	}
 	public double getKupovni() {
 		return kupovni;
 	}
 	public void setKupovni(double kupovni) {
+		if(kupovni < 0)
+			throw new RuntimeException("Kupovni kurs mora biti veci od nule.");
 		this.kupovni = kupovni;
 	}
 	public GregorianCalendar getDatum() {
 		return datum;
 	}
 	public void setDatum(GregorianCalendar datum) {
+		if(datum == null || datum.after(new GregorianCalendar()))
+			throw new RuntimeException("Datum ne smije biti null ili datum u buducnosti!");
 		this.datum = datum;
 	}
 	@Override
@@ -49,28 +57,13 @@ public class Kurs {
 	}
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Kurs other = (Kurs) obj;
-		if (datum == null) {
-			if (other.datum != null)
-				return false;
-		} else if (!datum.equals(other.datum))
-			return false;
-		if (Double.doubleToLongBits(kupovni) != Double
-				.doubleToLongBits(other.kupovni))
-			return false;
-		if (Double.doubleToLongBits(prodajni) != Double
-				.doubleToLongBits(other.prodajni))
-			return false;
-		if (Double.doubleToLongBits(srednji) != Double
-				.doubleToLongBits(other.srednji))
-			return false;
-		return true;
+		if(obj instanceof Kurs){
+			Kurs k=(Kurs) obj;
+			return k.getKupovni()==kupovni &&
+				 	k.getProdajni()==prodajni &&
+				 		k.getSrednji()==srednji;
+		}
+		return false;
 	}
 	@Override
 	public String toString() {

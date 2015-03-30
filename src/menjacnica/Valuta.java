@@ -12,18 +12,26 @@ public class Valuta {
 		return ime;
 	}
 	public void setIme(String ime) {
+		if(ime==null || ime.isEmpty())
+			throw new RuntimeException("Ime ne smije biti null ili prazan Stirng!");
+		
 		this.ime = ime;
 	}
 	public String getSkracenoIme() {
 		return skracenoIme;
 	}
 	public void setSkracenoIme(String skracenoIme) {
+		if(skracenoIme==null || skracenoIme.isEmpty())
+			throw new RuntimeException("skracenoIme ne smije biti null ili prazan Stirng!");
+		
 		this.skracenoIme = skracenoIme;
 	}
 	public LinkedList<Kurs> getKursevi() {
 		return kursevi;
 	}
 	public void setKursevi(LinkedList<Kurs> kursevi) {
+		if(kursevi.isEmpty() || kursevi==null )
+			throw new RuntimeException("Parametar kursevi ne smije biti null ili prazna lista");
 		this.kursevi = kursevi;
 	}
 	@Override
@@ -38,29 +46,11 @@ public class Valuta {
 	}
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Valuta other = (Valuta) obj;
-		if (ime == null) {
-			if (other.ime != null)
-				return false;
-		} else if (!ime.equals(other.ime))
-			return false;
-		if (kursevi == null) {
-			if (other.kursevi != null)
-				return false;
-		} else if (!kursevi.equals(other.kursevi))
-			return false;
-		if (skracenoIme == null) {
-			if (other.skracenoIme != null)
-				return false;
-		} else if (!skracenoIme.equals(other.skracenoIme))
-			return false;
-		return true;
+		if(obj instanceof Valuta){
+			Valuta v=(Valuta) obj;
+			return v.getIme().equals(ime);
+		}
+		return false;
 	}
 	@Override
 	public String toString() {
