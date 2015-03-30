@@ -8,7 +8,7 @@ public class Valuta {
 	private String skracenoIme;
 	LinkedList<Kurs> kursevi;
 	
-	
+	public Valuta() {};
 	public Valuta(String ime, String skracenoIme) {
 		this.ime = ime;
 		this.skracenoIme = skracenoIme;
