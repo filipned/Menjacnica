@@ -6,8 +6,14 @@ public class Valuta {
 	
 	private String ime;
 	private String skracenoIme;
-	LinkedList<Kurs> kursevi = new LinkedList<Kurs>();
+	LinkedList<Kurs> kursevi;
 	
+	
+	public Valuta(String ime, String skracenoIme) {
+		this.ime = ime;
+		this.skracenoIme = skracenoIme;
+		kursevi = new LinkedList<Kurs>();
+	}
 	public String getIme() {
 		return ime;
 	}
