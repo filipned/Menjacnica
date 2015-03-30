@@ -14,8 +14,15 @@ public class Menjacnica implements MenjacnicaInterfejs{
 	public void dodajKurs(String ime, String skracenoIme,
 			GregorianCalendar datum, double prodajni, double srednji,
 			double kupovni) {
-		Kurs k = new Kurs(prodajni, srednji, kupovni, datum);
-		Valuta v = new Valuta(ime, skracenoIme);
+		Kurs k = new Kurs();
+		k.setProdajni(prodajni);
+		k.setSrednji(srednji);
+		k.setKupovni(kupovni);
+		k.setDatum(datum);
+		Valuta v = new Valuta();
+		v.setIme(ime);
+		v.setSkracenoIme(skracenoIme);
+		
 		if(valute.contains(v)) {				//provjeravamo da li lista valuta vec sadrzi zadatu valutu
 			if(!(v.getKursevi().contains(k)))   //ako zadata valuta postoji, provjeravamo da li u kursevima te valute vec postoji zadati kurs
 				v.getKursevi().add(k);			//ako ne postoji, dodajemo ga u listu kurseva
@@ -29,6 +36,8 @@ public class Menjacnica implements MenjacnicaInterfejs{
 
 	@Override
 	public void obrisiKurs(String imeValute, GregorianCalendar datum) {
+		if(imeValute == null || imeValute.isEmpty() || datum == null || datum.after(new GregorianCalendar()))
+			throw new RuntimeException("Unijeti parametri neispravni.");
 		for (int i = 0; i < valute.size(); i++) {
 			if(valute.get(i).getIme().equals(imeValute)) {
 				for (int j = 0; j < valute.get(i).getKursevi().size(); j++) {
@@ -44,7 +53,8 @@ public class Menjacnica implements MenjacnicaInterfejs{
 
 	@Override
 	public Kurs pronadjiKurs(String imeValute, GregorianCalendar datum) {
-		
+		if(imeValute == null || imeValute.isEmpty() || datum==null || datum.after(new GregorianCalendar()))
+			throw new RuntimeException("Unijeti parametri neispravni.");
 		for (int i = 0; i < valute.size(); i++) {
 			if(valute.get(i).getIme().equals(imeValute)) {
 				for (int j = 0; j < valute.get(i).getKursevi().size(); j++) {
